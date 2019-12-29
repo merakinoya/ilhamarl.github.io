@@ -23,7 +23,7 @@
                     function (err) { console.error("Error signing in", err); });
         }
         function loadClient() {
-            gapi.client.setApiKey("AIzaSyC1NLNgTZ45mmyB5R5vq0aRcYnRyzvfY0w");
+            gapi.client.setApiKey("AIzaSyDbmbyOKTyNfn8cRFTPrPyV6ElVbQ3Xyxc");
             return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/sheets/v4/rest")
                 .then(function () { console.log("GAPI client loaded for API"); },
                     function (err) { console.error("Error loading GAPI client for API", err); });
@@ -41,7 +41,7 @@
                     function (err) { console.error("Execute error", err); });
         }
         gapi.load("client:auth2", function () {
-            gapi.auth2.init({ client_id: "1073858224147-gghnndp6cks3qijo7bfdmgn7dqqtne2m.apps.googleusercontent.com" });
+            gapi.auth2.init({ client_id: "1008171071364-kh7fotei3pn93il3gdmn4sip37o751o5.apps.googleusercontent.com" });
         });
     </script>
     <button onclick="authenticate().then(loadClient)">authorize and load</button>
