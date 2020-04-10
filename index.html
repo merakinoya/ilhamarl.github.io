@@ -38,13 +38,20 @@
       var id_token = googleUser.getAuthResponse().id_token;
       console.log("ID Token: " + id_token);
 
+
+      document.getElementById("signinButton").style.display = "block";
+      document.getElementById('name').innerText = "" + googleUser.getBasicProfile().getName();
+
     }
 
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
         console.log('User signed out.');
-        document.getElementById("name").innerHTML='Berhasil Sign Out';
+
+
+        document.getElementById("signoutButton").style.display = "none";
+        document.getElementById("name").innerHTML = 'Berhasil Sign Out';
       });
     }
 
@@ -115,9 +122,9 @@
 
           <div id="signoutButton" class="navbar-item">
             <div class="field is-grouped">
-                <a href="#" class="button is-primary" onclick="signOut();">
-                  <span>Sign Out</span>
-                </a>
+              <a href="#" class="button is-primary" onclick="signOut();">
+                <span>Sign Out</span>
+              </a>
             </div>
           </div>
 
