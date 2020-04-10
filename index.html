@@ -32,6 +32,7 @@
 
       if (auth2.isSignedIn.get()) {
         var profile = auth2.currentUser.get().getBasicProfile();
+
         console.log('ID: ' + profile.getId());
         console.log('Full Name: ' + profile.getName());
         console.log('Given Name: ' + profile.getGivenName());
@@ -43,10 +44,13 @@
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
 
-        document.getElementById("name").innerText = "" + googleUser.getBasicProfile().getName();
+        document.getElementById("name").innerText = "" + auth2.currentUser.get().getBasicProfile().getName();
+        document.getElementById("signinButton").style.display = "none" ;
       }
       else {
-        onFailure();
+
+        document.getElementById("signoutButton").style.display = "none" ;
+
       }
     }
 
