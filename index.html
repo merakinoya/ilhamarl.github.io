@@ -24,6 +24,7 @@
   <script>
 
     function onSignIn(googleUser) {
+
       var profile = googleUser.getBasicProfile();
 
       console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -43,6 +44,7 @@
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
         console.log('User signed out.');
+        document.getElementById("name").innerHTML='Berhasil Sign Out';
       });
     }
 
@@ -107,27 +109,18 @@
           </div>
 
 
-          <div class="navbar-item">
+          <div id="signinButton" class="navbar-item">
             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"></div>
           </div>
 
-          <div id="name" class="navbar-item"></div>
-
-          <div class="navbar-item">
-
+          <div id="signoutButton" class="navbar-item">
             <div class="field is-grouped">
-              <p class="control">
-
                 <a href="#" class="button is-primary" onclick="signOut();">
-                  <span class="icon">
-                    <i class="fas fa-sign-in" aria-hidden="true"></i>
-                  </span>
                   <span>Sign Out</span>
                 </a>
-
-              </p>
             </div>
           </div>
+
 
         </div>
       </div>
@@ -140,7 +133,7 @@
         <div class="columns is-vcentered">
 
           <div class="column is-5">
-            <h1 class="title is-1 spaced">
+            <h1 id="name" class="title is-1 spaced">
               Catering by Ride
             </h1>
             <h2 class="subtitle is-4 spaced">
