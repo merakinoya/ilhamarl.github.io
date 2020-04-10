@@ -13,7 +13,12 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
   <meta name="google-signin-scope" content="profile email">
+  <!-- OAuth Google Client ID-->
   <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
+  <!-- Firebase Web Client ID-->
+  <meta name="google-signin-client_id" content="1836056471-e419nv8hbknurednp3k9csgapmvej98h.apps.googleusercontent.com">
+
+  <meta name="google-signin-cookiepolicy" content="single_host_origin">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -35,17 +40,17 @@
       var id_token = googleUser.getAuthResponse().id_token;
       console.log("ID Token: " + id_token);
 
+      document.getElementById("name").innerHTML = profile.getName;
+
     }
 
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
+
       auth2.signOut().then(function () {
         console.log('User signed out.');
       });
-    }
 
-    function getProfileGoogle(googleUser) {
-      document.getElementById('#name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
     }
 
     function onFailure(error) {
@@ -143,14 +148,14 @@
 
           <div class="column is-5">
             <h1 class="title is-1 spaced">
-              Catering by Ride
+              Hello World <span id="name"></span>
             </h1>
             <h2 class="subtitle is-4 spaced">
-              Let this cover page describe a product or service.
+              Welcome in Your Homepage
             </h2>
             <p class="">
-              <a href="/test/index-test1.html" class="button is-medium is-primary">
-                Test API Google Sheet
+              <a href="" class="button is-medium is-primary">
+                Great !
               </a>
             </p>
           </div>
@@ -212,6 +217,7 @@
   <script src="js/script.js"></script>
 
 
+
   <!-- Add the entire Firebase JavaScript SDK -->
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
 
@@ -225,22 +231,47 @@
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
 
-  <script>ß
-    // TODO: Replace the following with your app's Firebase project configuration
-    var firebaseConfig = {
-      // ...
-      apiKey: "api-key",
-      authDomain: "project-id.firebaseapp.com",
-      databaseURL: "https://project-id.firebaseio.com",
-      projectId: "project-id",
-      storageBucket: "project-id.appspot.com",
-      messagingSenderId: "sender-id",
-      appId: "app-id",
-      measurementId: "G-measurement-id",
-    };
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
 
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCke8i-8IEnjPpOewrluy3MTTdnqGKSTbo",
+      authDomain: "ilham-arl.firebaseapp.com",
+      databaseURL: "https://ilham-arl.firebaseio.com",
+      projectId: "ilham-arl",
+      storageBucket: "ilham-arl.appspot.com",
+      messagingSenderId: "1836056471",
+      appId: "1:1836056471:web:7c9fbdf7611d27d272ced2"
+    };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+    // Sign Function
+    function loginwtihGoogle() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+    }
+
   </script>
 
   <script>
