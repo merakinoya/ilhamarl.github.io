@@ -39,8 +39,8 @@
       console.log("ID Token: " + id_token);
 
 
-      document.getElementById("signinButton").style.display = "block";
-      document.getElementById('name').innerText = "" + googleUser.getBasicProfile().getName();
+      document.getElementById("signoutButton").style.display = "none";
+      document.getElementById("name").innerText = "" + googleUser.getBasicProfile().getName();
 
     }
 
@@ -49,8 +49,7 @@
       auth2.signOut().then(function () {
         console.log('User signed out.');
 
-
-        document.getElementById("signoutButton").style.display = "none";
+        document.getElementById("signinButton").style.display = "block";
         document.getElementById("name").innerHTML = 'Berhasil Sign Out';
       });
     }
@@ -117,10 +116,11 @@
 
 
           <div id="signinButton" class="navbar-item">
-            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"></div>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"
+              style="display: block;"></div>
           </div>
 
-          <div id="signoutButton" class="navbar-item">
+          <div id="signoutButton" class="navbar-item" style="display: none;">
             <div class="field is-grouped">
               <a href="#" class="button is-primary" onclick="signOut();">
                 <span>Sign Out</span>
