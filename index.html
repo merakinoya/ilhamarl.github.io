@@ -10,9 +10,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/skill.scss">
-
-
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+  <script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+  </script>
+
 </head>
 
 <body class="">
@@ -42,7 +63,7 @@
         <div class="navbar-end">
           <!-- navbar items -->
           <a class="navbar-item">
-            Services
+            My Bio
           </a>
 
           <div class="navbar-item has-dropdown is-hoverable">
@@ -56,15 +77,23 @@
             </div>
           </div>
 
+
           <div class="navbar-item">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </div>
+
+          <div class="navbar-item">
+
             <div class="field is-grouped">
               <p class="control">
-                <a class="button is-primary">
+
+                <a href="#" class="button is-primary" onclick="signOut();">
                   <span class="icon">
                     <i class="fas fa-sign-in" aria-hidden="true"></i>
                   </span>
-                  <span>Sign Up</span>
+                  <span>Sign Out</span>
                 </a>
+
               </p>
             </div>
           </div>
@@ -138,15 +167,17 @@
     <div class="content has-text-centered spaced">
       <p>
         &copy; 2010
-        <script>new Date().getFullYear() > 2014 && document.write("-" + new Date().getFullYear());</script>, Copyright by <a
-          href="https://ilhamarl">Ilham Anasruloh</a>
+        <script>new Date().getFullYear() > 2014 && document.write("-" + new Date().getFullYear());</script>, Copyright
+        by <a href="https://ilhamarl">Ilham Anasruloh</a>
       </p>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
   <script src="js/script.js"></script>
+
   <script>
     var animation = bodymovin.loadAnimation({
       container: document.getElementById('lottie'), // Required
