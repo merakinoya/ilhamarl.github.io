@@ -9,7 +9,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/skill.scss">
+  <link rel="stylesheet" href="css/sekelton-load.scss">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
   <meta name="google-signin-scope" content="profile email">
@@ -38,8 +38,6 @@
       var id_token = googleUser.getAuthResponse().id_token;
       console.log("ID Token: " + id_token);
 
-
-      document.getElementById("signoutButton").style.display = "none";
       document.getElementById("name").innerText = "" + googleUser.getBasicProfile().getName();
 
     }
@@ -48,8 +46,6 @@
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
         console.log('User signed out.');
-
-        document.getElementById("signinButton").style.display = "block";
         document.getElementById("name").innerHTML = 'Berhasil Sign Out';
       });
     }
@@ -140,6 +136,7 @@
         <div class="columns is-vcentered">
 
           <div class="column is-5">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
             <h1 id="name" class="title is-1 spaced">
               Catering by Ride
             </h1>
