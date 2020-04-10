@@ -1,289 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Ilham Anasruloh - Resume</title>
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/skill.scss">
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
-
-  <meta name="google-signin-scope" content="profile email">
-  <!-- OAuth Google Client ID-->
-  <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
-  <!-- Firebase Web Client ID-->
-  <meta name="google-signin-client_id" content="1836056471-e419nv8hbknurednp3k9csgapmvej98h.apps.googleusercontent.com">
-
-  <meta name="google-signin-cookiepolicy" content="single_host_origin">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
-
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <script src="https://apis.google.com/js/api:client.js"></script>
   <script>
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Full Name: ' + profile.getName());
-      console.log('Given Name: ' + profile.getGivenName());
-      console.log('Family Name: ' + profile.getFamilyName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-      // The ID token you need to pass to your backend:
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);
-
-      document.getElementById("name").innerHTML = profile.getName;
-
-    }
-
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
       });
-
-    }
-
-    function onFailure(error) {
-      console.log('Ada Error nih' + error);
-    }
-
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 220,
-        'height': 42,
-        'longtitle': true,
-        'theme': 'light',
-        'onsuccess': onSignIn,
-        'onfailure': onFailure
-      });
-    }
-  </script>
-
-</head>
-
-<body class="">
-  <nav class="navbar is-fixed-top is-spaced is-white" role="navigation" aria-label="main navigation">
-    <!-- navbar brands -->
-    <div class="container">
-      <div class="navbar-brand">
-        <!-- navbar items -->
-        <a class="navbar-item" href="https://ilhamarl.github.io">
-          <b class="title">Ilham Arl</b>
-        </a>
-        <!-- navbar burger with data-target in id="navMenu" -->
-        <div role="button" class="navbar-burger burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <!-- navMenu refrences from data-target navMenu, is-active for shown on mobile -->
-      <div id="navMenu" class="navbar-menu">
-
-        <div class="navbar-start">
-          <!-- navbar items -->
-        </div>
-
-        <div class="navbar-end">
-          <!-- navbar items -->
-          <a class="navbar-item">
-            My Bio
-          </a>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              Products
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item">
-                Overview
-              </a>
-            </div>
-          </div>
-
-
-          <div class="navbar-item">
-            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"></div>
-          </div>
-
-          <div id="name" class="navbar-item"></div>
-
-          <div class="navbar-item">
-
-            <div class="field is-grouped">
-              <p class="control">
-
-                <a href="#" class="button is-primary" onclick="signOut();">
-                  <span class="icon">
-                    <i class="fas fa-sign-in" aria-hidden="true"></i>
-                  </span>
-                  <span>Sign Out</span>
-                </a>
-
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <section class="hero is-fullheight">
-    <div class="hero-body" style="padding-top: 100px;">
-      <div class="container">
-        <div class="columns is-vcentered">
-
-          <div class="column is-5">
-            <h1 class="title is-1 spaced">
-              Hello World <span id="name"></span>
-            </h1>
-            <h2 class="subtitle is-4 spaced">
-              Welcome in Your Homepage
-            </h2>
-            <p class="">
-              <a href="" class="button is-medium is-primary">
-                Great !
-              </a>
-            </p>
-          </div>
-
-          <div class="column is-6 is-offset-1 ">
-            <figure class="image">
-              <div id="lottie" width="11" height="20"></div>
-            </figure>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div id="data-googlesheet"></div>
-
-  <footer class="footer">
-    <div class="content has-text-centered container">
-      <div class="columns">
-        <div class="column">
-          <a href="https://www.linkedin.com/in/ilhamanasruloh" target="_newblank">
-            <span class="icon">
-              <i class="fab fa-linkedin fa-2x"></i>&nbsp<p style="font-size: 16px;">ilhamanasruloh</p>
-            </span>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="https://instagram.com/ilham.arl" target="_newblank">
-            <span class="icon">
-              <i class="fab fa-instagram fa-2x"></i>&nbsp<p style="font-size: 16px;">Ilham.arl</p>
-            </span>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="https://medium.com/@ilhamanasruloh" target="_newblank">
-            <span class="icon">
-              <i class="fab fa-medium fa-2x"></i>&nbsp<p style="font-size: 16px;">@ilhamanasruloh</p>
-            </span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <br><br><br>
-    <div class="content has-text-centered spaced">
-      <p>
-        &copy; 2010
-        <script>new Date().getFullYear() > 2014 && document.write("-" + new Date().getFullYear());</script>, Copyright
-        by <a href="https://ilhamarl">Ilham Anasruloh</a>
-      </p>
-    </div>
-  </footer>
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
-  <script src="js/script.js"></script>
-
-
-
-  <!-- Add the entire Firebase JavaScript SDK -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
-
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
-
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyCke8i-8IEnjPpOewrluy3MTTdnqGKSTbo",
-      authDomain: "ilham-arl.firebaseapp.com",
-      databaseURL: "https://ilham-arl.firebaseio.com",
-      projectId: "ilham-arl",
-      storageBucket: "ilham-arl.appspot.com",
-      messagingSenderId: "1836056471",
-      appId: "1:1836056471:web:7c9fbdf7611d27d272ced2"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Sign Function
-    function loginwtihGoogle() {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function (result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-      }).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-    }
-
-  </script>
-
-  <script>
-    var animation = bodymovin.loadAnimation({
-      container: document.getElementById('lottie'), // Required
-      path: 'https://assets6.lottiefiles.com/packages/lf20_h9fcK1.json',
-      renderer: 'svg', // Required
-      loop: true, // Optional
-      autoplay: true, // Optional
-      name: "Hello World", // Name for future reference. Optional.
+      attachSignin(document.getElementById('customBtn'));
     });
-  </script>
-</body>
+  };
 
+  function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+  </script>
+  <style type="text/css">
+    #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 190px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
+    span.icon {
+      background: url('https://www.google.com/favicon.ico') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 42px;
+      padding-right: 42px;
+      font-size: 14px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+  </head>
+  <body>
+  <!-- In the callback, you would hide the gSignInWrapper element on a
+  successful sign in -->
+  <div id="gSignInWrapper">
+    <span class="label">Sign in with:</span>
+    <div id="customBtn" class="customGPlusSignIn">
+      <span class="icon"></span>
+      <span class="buttonText">Google</span>
+    </div>
+  </div>
+  <div id="name"></div>
+  <script>startApp();</script>
+</body>
 </html>
