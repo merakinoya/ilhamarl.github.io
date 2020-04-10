@@ -14,7 +14,7 @@
 
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
@@ -23,9 +23,8 @@
   <script>
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
-
       console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Logged in as Name: ' + profile.getName());
+      console.log('Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     }
@@ -33,9 +32,18 @@
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-        console.log('Yes, User Signed Out.');
+        console.log('User signed out.');
       });
     }
+
+    function getProfileGoogle(googleUser) {
+      document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
+    }
+
+    getProfileGoogle();
+
+
+    
 
     function onFailure(error) {
       console.log('Ada Error nih' + error);
@@ -99,11 +107,11 @@
 
 
           <div class="navbar-item">
-            <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn"></div>
-            <!--
-              <div class="g-signin2" data-width="32" data-height="200" data-longtitle="true">
-            -->
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
           </div>
+
+
+          <div id="name" class="navbar-item"></div>
 
           <div class="navbar-item">
 
