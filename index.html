@@ -23,6 +23,7 @@
   <script>
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
+
       console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
       console.log('Logged in as Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
@@ -37,16 +38,16 @@
     }
 
     function onFailure(error) {
-      console.log(error);
+      console.log('Ada Error nih' + error);
     }
 
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
-        'width': 120,
-        'height': 32,
+        'width': 220,
+        'height': 42,
         'longtitle': true,
-        'theme': 'dark',
+        'theme': 'light',
         'onsuccess': onSignIn,
         'onfailure': onFailure
       });
@@ -98,8 +99,10 @@
 
 
           <div class="navbar-item">
-            <!--  <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn"></div> -->
-            <div class="g-signin2" data-width="300" data-height="200" data-longtitle="true"></div>
+            <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn"></div>
+            <!--
+              <div class="g-signin2" data-width="32" data-height="200" data-longtitle="true">
+            -->
           </div>
 
           <div class="navbar-item">
