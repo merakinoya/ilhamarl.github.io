@@ -38,7 +38,7 @@
       console.log("ID Token: " + id_token);
 
 
-      document.getElementById("name").innerHTML = '' + googleUser.getBasicProfile().getName();
+      document.getElementsByClassName("nama-user").innerHTML = '' + googleUser.getBasicProfile().getName();
     }
 
     function signOut() {
@@ -99,7 +99,7 @@
           </a>
 
           <div class="navbar-item has-dropdown is-hoverable">
-            <a id="name" class="navbar-link">
+            <a class="navbar-link nama-user">
               Profile
             </a>
             <div class="navbar-dropdown is-boxed">
@@ -126,7 +126,7 @@
 
           <div class="column is-5">
             <span class="skeleton-box" style="width:100px;height:80px;"></span>
-            <h1 id="name" class="title is-1 spaced">
+            <h1 class="title is-1 spaced nama-user">
               Catering by Ride
             </h1>
             <h2 class="subtitle is-4 spaced">
