@@ -14,8 +14,28 @@
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
+  <meta name="google-signin-cookiepolicy" content="single_host_origin">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+  <script>
+
+
+
+    // HTML Code has - onclick="signOut();"
+     function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+        document.getElementById("name").innerHTML = 'Berhasil Sign Out';
+      });
+    }
+
+  </script>
 
 </head>
 
@@ -153,7 +173,7 @@
 
     //
 
-    googleSignin=()=>{
+    function onSignIn(googleUser){
       var provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider).then(function (result) {
         // This gives you a Google Access Token. You can use it to access the Google API.
