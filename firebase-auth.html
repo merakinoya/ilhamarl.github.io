@@ -13,71 +13,13 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
   <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="1836056471-os841e2nustl095l8m4459crumtqnmai.apps.googleusercontent.com">
   <meta name="google-signin-cookiepolicy" content="single_host_origin">
+
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
-
-  <script>
-    function onSignIn() {
-
-      auth2 = gapi.auth2.init({
-        client_id: '1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com',
-        fetch_basic_profile: false,
-        scope: 'profile'
-      });
-
-      if (auth2.isSignedIn.get()) {
-        var profile = auth2.currentUser.get().getBasicProfile();
-
-        console.log('ID: ' + profile.getId());
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-
-        document.getElementById("name").innerText = "" + auth2.currentUser.get().getBasicProfile().getName();
-        document.getElementById("signinButton").style.display = "none" ;
-      }
-      else {
-
-        document.getElementById("signoutButton").style.display = "none" ;
-
-      }
-    }
-
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-        document.getElementById("name").innerHTML = 'Berhasil Sign Out';
-      });
-    }
-
-    function onFailure(error) {
-      console.log('Ada Error nih' + error);
-    }
-
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 220,
-        'height': 42,
-        'longtitle': true,
-        'theme': 'light',
-        'onsuccess': onSignIn,
-        'onfailure': onFailure
-      });
-    }
-  </script>
 
 </head>
 
@@ -140,7 +82,7 @@
           <div class="column is-5">
             <span class="skeleton-box" style="width:100px;height:80px;"></span>
             <h1 id="name" class="title is-1 spaced">
-              Catering by Ride
+              Hello <span id="nama-user"></span>
             </h1>
             <h2 class="subtitle is-4 spaced">
               Let this cover page describe a product or service.
@@ -180,19 +122,76 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
   <script src="js/script.js"></script>
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
 
-  <!-- Add the entire Firebase JavaScript SDK -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
 
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
 
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
 
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCke8i-8IEnjPpOewrluy3MTTdnqGKSTbo",
+      authDomain: "ilham-arl.firebaseapp.com",
+      databaseURL: "https://ilham-arl.firebaseio.com",
+      projectId: "ilham-arl",
+      storageBucket: "ilham-arl.appspot.com",
+      messagingSenderId: "1836056471",
+      appId: "1:1836056471:web:7c9fbdf7611d27d272ced2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+
+    //
+    function onSignIn(googleUser) {
+      console.log('Google Auth Response', googleUser);
+      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+      var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
+        unsubscribe();
+        // Check if we are already signed-in Firebase with the correct user.
+        if (!isUserEqual(googleUser, firebaseUser)) {
+          // Build Firebase credential with the Google ID token.
+          var credential = firebase.auth.GoogleAuthProvider.credential(
+            googleUser.getAuthResponse().id_token);
+          // Sign in with credential from the Google user.
+          firebase.auth().signInWithCredential(credential).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+        } else {
+          console.log('User already signed-in Firebase.');
+        }
+      });
+    }
+
+    function isUserEqual(googleUser, firebaseUser) {
+      if (firebaseUser) {
+        var providerData = firebaseUser.providerData;
+        for (var i = 0; i < providerData.length; i++) {
+          if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+            providerData[i].uid === googleUser.getBasicProfile().getId()) {
+            // We don't need to reauth the Firebase connection.
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+
+  </script>
+
+
+
+
 
   <script>
     var animation = bodymovin.loadAnimation({
