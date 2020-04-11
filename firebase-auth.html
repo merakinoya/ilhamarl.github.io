@@ -12,10 +12,6 @@
   <link rel="stylesheet" href="css/sekelton-load.scss">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
-  <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="1836056471-os841e2nustl095l8m4459crumtqnmai.apps.googleusercontent.com">
-  <meta name="google-signin-cookiepolicy" content="single_host_origin">
-
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -54,7 +50,7 @@
           </a>
 
           <div class="navbar-item has-dropdown is-hoverable">
-            <a id="name" class="navbar-link">
+            <a id="nama-user" class="navbar-link">
               Profile
             </a>
             <div class="navbar-dropdown is-boxed">
@@ -88,9 +84,12 @@
               Let this cover page describe a product or service.
             </h2>
             <p class="">
-              <a href="/test/index-test1.html" class="button is-medium is-primary">
-                Test API Google Sheet
-              </a>
+              <div class="g-signin2 button is-medium is-primary" data-onsuccess="onSignIn" data-theme="dark"
+                data-longtitle="true">
+                Sign In with Google
+              </div>
+
+              <button onclick="googleSignin()" class="button is-medium is-secondary">Sign in With Google 2</button>
             </p>
           </div>
 
@@ -122,11 +121,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
   <script src="js/script.js"></script>
 
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
 
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
 
 
   <script>
@@ -143,47 +148,32 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
     //
-    function onSignIn(googleUser) {
-      console.log('Google Auth Response', googleUser);
-      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-      var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
-        unsubscribe();
-        // Check if we are already signed-in Firebase with the correct user.
-        if (!isUserEqual(googleUser, firebaseUser)) {
-          // Build Firebase credential with the Google ID token.
-          var credential = firebase.auth.GoogleAuthProvider.credential(
-            googleUser.getAuthResponse().id_token);
-          // Sign in with credential from the Google user.
-          firebase.auth().signInWithCredential(credential).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
-        } else {
-          console.log('User already signed-in Firebase.');
-        }
-      });
-    }
 
-    function isUserEqual(googleUser, firebaseUser) {
-      if (firebaseUser) {
-        var providerData = firebaseUser.providerData;
-        for (var i = 0; i < providerData.length; i++) {
-          if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-            providerData[i].uid === googleUser.getBasicProfile().getId()) {
-            // We don't need to reauth the Firebase connection.
-            return true;
-          }
-        }
-      }
-      return false;
+    googleSignin=()=>{
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+
+        document.getElementById("nama-user").innerHTML = "" + user;
+
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
     }
 
 
