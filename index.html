@@ -28,8 +28,8 @@
       var profile = googleUser.getBasicProfile();
       console.log("ID: " + profile.getId()); // Don't send this directly to your server!
       console.log('Full Name: ' + profile.getName());
-      console.log('Given Name: ' + profile.getGivenName());
-      console.log('Family Name: ' + profile.getFamilyName());
+      console.log('First Name: ' + profile.getGivenName());
+      console.log('Last Name: ' + profile.getFamilyName());
       console.log("Image URL: " + profile.getImageUrl());
       console.log("Email: " + profile.getEmail());
 
@@ -38,7 +38,9 @@
       console.log("ID Token: " + id_token);
 
 
-      document.getElementsByClassName("nama-user").innerHTML = '' + googleUser.getBasicProfile().getName();
+      document.getElementById("first-name").innerHTML = '' + googleUser.getBasicProfile().getGivenName();
+      document.getElementById("photo").setAttribute("src", googleUser.getBasicProfile().getImageUrl());
+      document.getElementById("full-name").innerHTML = '' + googleUser.getBasicProfile().getName();
     }
 
     function signOut() {
@@ -99,8 +101,8 @@
           </a>
 
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link nama-user">
-              Profile
+            <a id="first-name" class="navbar-link">
+              <span><img id="photo" src="" style="position: absolute;"></span> Profile
             </a>
             <div class="navbar-dropdown is-boxed">
               <a id="signoutButton" href="#" class="navbar-item" onclick="signOut();">
@@ -126,7 +128,7 @@
 
           <div class="column is-5">
             <span class="skeleton-box" style="width:100px;height:80px;"></span>
-            <h1 class="title is-1 spaced nama-user">
+            <h1 id="full-name" class="title is-1 spaced">
               Catering by Ride
             </h1>
             <h2 class="subtitle is-4 spaced">
