@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ilham Anasruloh - Resume</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sekelton-load.scss">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="1836056471-cbpieu94nbhliq943g1j4c2tmj4tb8dc.apps.googleusercontent.com">
+  <meta name="google-signin-cookiepolicy" content="single_host_origin">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+
+  <script>
+
+    function onSignIn(googleUser) {
+      // Useful data for your client-side scripts:
+      var profile = googleUser.getBasicProfile();
+      console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+      console.log('Full Name: ' + profile.getName());
+      console.log('First Name: ' + profile.getGivenName());
+      console.log('Last Name: ' + profile.getFamilyName());
+      console.log("Image URL: " + profile.getImageUrl());
+      console.log("Email: " + profile.getEmail());
+
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log("ID Token: " + id_token);
+
+
+      document.getElementById("first-name").innerHTML = '' + googleUser.getBasicProfile().getGivenName();
+      document.getElementById("photo").setAttribute("src", googleUser.getBasicProfile().getImageUrl());
+      document.getElementById("full-name").innerHTML = '' + googleUser.getBasicProfile().getName();
+    }
+
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+        document.getElementById("name").innerHTML = 'Berhasil Sign Out';
+      });
+    }
+
+    function onFailure(error) {
+      console.log('Ada Error nih' + error);
+    }
+
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 220,
+        'height': 42,
+        'longtitle': true,
+        'theme': 'light',
+        'onsuccess': onSignIn,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+</head>
+
+<body class="">
+  <nav class="navbar is-fixed-top is-spaced is-white" role="navigation" aria-label="main navigation">
+    <!-- navbar brands -->
+    <div class="container">
+      <div class="navbar-brand">
+        <!-- navbar items -->
+        <a class="navbar-item" href="https://ilhamarl.github.io">
+          <b class="title">Ilham Arl</b>
+        </a>
+        <!-- navbar burger with data-target in id="navMenu" -->
+        <div role="button" class="navbar-burger burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- navMenu refrences from data-target navMenu, is-active for shown on mobile -->
+      <div id="navMenu" class="navbar-menu">
+
+        <div class="navbar-start">
+          <!-- navbar items -->
+        </div>
+
+        <div class="navbar-end">
+          <!-- navbar items -->
+          <a class="navbar-item">
+            My Bio
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a id="first-name" class="navbar-link">
+              <span><img id="photo" src="" style="position: absolute;"></span> Profile
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <a id="signoutButton" href="#" class="navbar-item" onclick="signOut();">
+                Logout
+              </a>
+            </div>
+          </div>
+
+
+          <div id="signinButton" class="navbar-item">
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero is-medium">
+    <div class="hero-body" style="padding-top: 100px;">
+      <div class="container">
+        <div class="columns is-vcentered">
+
+          <div class="column is-5">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+            <h1 id="full-name" class="title is-1 spaced">
+              Catering by Ride
+            </h1>
+            <h2 class="subtitle is-4 spaced">
+              Let this cover page describe a product or service.
+            </h2>
+            <p class="">
+              <a href="/test/index-test1.html" class="button is-medium is-primary">
+                Test API Google Sheet
+              </a>
+            </p>
+          </div>
+
+          <div class="column is-6 is-offset-1 ">
+            <figure class="image">
+              <div id="lottie" width="11" height="20"></div>
+            </figure>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="data-googlesheet"></div>
+
+  <footer class="footer">
+    <div class="content has-text-centered spaced">
+      <p>
+        &copy; 2010
+        <script>new Date().getFullYear() > 2014 && document.write("-" + new Date().getFullYear());</script>, Copyright
+        by <a href="https://ilhamarl">Ilham Anasruloh</a>
+      </p>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
+  <script src="js/script.js"></script>
+
+
+  <!-- Add the entire Firebase JavaScript SDK -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase.js"></script>
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+
+  <script>
+    var animation = bodymovin.loadAnimation({
+      container: document.getElementById('lottie'), // Required
+      path: 'https://assets6.lottiefiles.com/packages/lf20_h9fcK1.json',
+      renderer: 'svg', // Required
+      loop: true, // Optional
+      autoplay: true, // Optional
+      name: "Hello World", // Name for future reference. Optional.
+    });
+  </script>
+</body>
+
+</html>
